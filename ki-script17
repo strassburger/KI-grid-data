@@ -1,0 +1,69 @@
+#!/bin/bash
+
+#  script running in the bash of a ubuntu machine to get live data of king island into a file with the date 
+
+# ---------------
+# to to send keystrokes from script install and use xdotool 
+# still to be made better: 
+# to be adapted or other OS
+# local tasmanian time
+# the script only can be stopped with Ctrl+C
+# Better now:  the machine running the script can not be used to work other things
+# since Version ki-script17:
+# the machine can be used for other things with installing and using "xsel" 
+
+
+ 
+cd '/home/rainer/king-island-data'
+
+# before start the script  manuel change to script-directory 
+# there: manuel start with ./ki-scriptxx
+
+# -- Source --
+firefox   http://www.kingislandrenewableenergy.com.au/kiapp-dashboard/dashboard.html
+
+
+# exec gedit merker &
+# wait to get first data
+echo stop script with Ctrl+C or Strg+C
+echo waiting 60s to be sure to get real data
+sleep 60
+
+# pruefen ob window 'King Island Showcase' richtig erkannt wird
+windowking=`xdotool search  --name 'King Island Showcase'`
+echo  windowking $windowking 
+echo Nur ein parameter hier erlaubt, wenn mehr firefox und script  neu starten
+
+# --- Date + Time in file ---
+# verbessern
+num=0
+while test $num -le 10; do
+	# --- filename def ---
+	datafile="ki-`date +%Y-%m-%d`.txt"
+
+	echo -n "time UTC;"   >> $datafile
+	echo -n "`date +%Y-%m-%d_%H-%M-%S`;"   >> $datafile
+	# --- Timestamp ---
+	echo -n "unix timestamp UTC;" >> $datafile
+	echo -n "`date +%s`;"   >> $datafile
+	
+	# delete clipboard content
+	xsel -c 
+	# xsel -cb
+	sleep 1
+
+	# mark and copy Text in dashboard 
+	xdotool search --name 'King Island Showcase' key ctrl+a ctrl+c
+	
+	
+	sleep 1
+	
+	# put data from clipbord to datafile and sort the data for output with ;
+	xsel -b | tr  '\n'  ";"   >> $datafile
+	
+	# CR in datafile
+	echo  >> $datafile
+done
+
+
+
