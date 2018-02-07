@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#  script running in the bash of a ubuntu machine to get live data of king island into a file with the date 
+
+# ---------------
+# to to send keystrokes from script install and use xdotool 
+# still to be made better: 
+# to be adapted or other OS
+# local tasmanian time
+
+ 
+cd '/home/rainer/king-island-data'
+
+# before start the script  manuel change to script-directory 
+# there: manuel start with ./ki-script-EM-inixx
+
+# -- Source --
+firefox   http://www.kingislandrenewableenergy.com.au/kiapp-dashboard/dashboard.html
+
+
+# exec gedit merker &
+# wait to get first data
+echo waiting 60s to be sure to get real data
+sleep 60
+
+# test if  window 'King Island Showcase' is recognized
+windowking=`xdotool search  --name 'King Island Showcase'`
+echo  windowking $windowking 
+echo one parameter only, with two or three: start firefox und script new
+
+
+

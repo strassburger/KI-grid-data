@@ -1,0 +1,42 @@
+cd '/home/rainer/king-island-data'
+
+# before start the script  manuel change to script-directory 
+# there: manuel start with ./ki-script-EMxx
+
+# test if  window 'King Island Showcase' is recognized
+windowking=`xdotool search  --name 'King Island Showcase'`
+echo  windowking $windowking 
+echo one parameter only, with two or three: start firefox und script new
+
+# --- Date + Time in file ---
+
+	# --- filename def ---
+	datafile="EM-ki-`date +%Y-%m-%d`.txt"
+
+	echo -n "time UTC;"   >> $datafile
+	echo -n "`date +%Y-%m-%d_%H-%M-%S`;"   >> $datafile
+	# --- Timestamp ---
+	echo -n "unix timestamp UTC;" >> $datafile
+	echo -n "`date +%s`;"   >> $datafile
+	
+	# delete clipboard content
+	xsel -c 
+	# xsel -cb
+	sleep 1
+
+	# mark and copy Text in dashboard 
+	xdotool search --name 'King Island Showcase' key ctrl+a ctrl+c
+	
+	
+	sleep 1
+	
+	# put data from clipbord to datafile and sort the data for output with ;
+	xsel -b | tr  '\n'  ";"   >> $datafile
+	
+	# CR in datafile
+	echo  >> $datafile
+
+exit
+
+
+
