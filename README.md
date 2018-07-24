@@ -1,4 +1,10 @@
 # KI-grid-data
+Good idea is to realize it on a VirtualMachine (VM)
+In Ubuntu just install VirtualBox
+Even in Windows you can install VirtualBox.
+https://www.virtualbox.org/
+So your working machine still will be fine
+
 King Island grid data:  
 How to get data of King Island and put it into files.
 
