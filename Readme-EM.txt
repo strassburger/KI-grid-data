@@ -1,4 +1,3 @@
-
 Good idea is to realize it on a VirtualMachine (VM)
 In Ubuntu just install VirtualBox
 Even in Windows you can install VirtualBox.
